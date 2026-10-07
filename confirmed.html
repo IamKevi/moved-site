@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MoveD – Account confirmed</title><link rel="stylesheet" href="style.css">
+<style>.big{font-size:56px;line-height:1;margin:28px 0 10px}.cta{display:inline-block;margin-top:18px;padding:14px 22px;border-radius:999px;background:var(--accent);color:#0F1216;font-weight:700;text-decoration:none}.steps li{margin:8px 0}</style>
+</head>
+<body><main>
+<div class="brand"><span></span><b>MoveD</b></div>
+<div class="big" id="icon">✓</div>
+<h1 id="title">Your account is confirmed</h1>
+<p id="lead">You're all set. Open MoveD on your phone and sign in with your e-mail and password.</p>
+<a class="cta" href="moved://auth" id="open">Open MoveD</a>
+<div class="card">
+<ol class="steps">
+<li>Open the <b>MoveD</b> app.</li>
+<li>Tap <b>Sign in</b> (not “Create account”).</li>
+<li>Use the e-mail and password you just chose.</li>
+</ol>
+</div>
+<p id="store">Don't have the app yet? <a href="https://apps.apple.com/app/moved-sport-friends/id6809008039">Get it on the App Store</a>.</p>
+<footer>© 2026 Kevin Teixeira Lopes · Ettelbruck, Luxembourg</footer>
+</main>
+<script>
+// Supabase appends the result to the URL: #error=... when the link is expired/used, #access_token=... when fine.
+var h = location.hash || '';
+if (/error/.test(h)) {
+  var desc = decodeURIComponent((h.match(/error_description=([^&]*)/) || [,''])[1]).replace(/\+/g,' ');
+  document.getElementById('icon').textContent = '!';
+  document.getElementById('title').textContent = 'This link has expired';
+  document.getElementById('lead').textContent = (desc ? desc + '. ' : '') + 'Open MoveD and sign in – if that fails, request a new link from the sign-in screen.';
+}
+// Try to hand off to the app automatically (works when MoveD is installed); the button stays as fallback.
+setTimeout(function(){ try { location.href = 'moved://auth' + h; } catch (e) {} }, 400);
+</script>
+</body></html>
