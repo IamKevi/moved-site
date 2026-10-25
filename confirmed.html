@@ -20,6 +20,10 @@
 <script>
 // Supabase appends the result to the URL: #error=... when the link is expired/used, #access_token=... when fine.
 var h = location.hash || '';
+if (/type=recovery/.test(h)) {
+  document.getElementById('title').textContent = 'Choose a new password';
+  document.getElementById('lead').textContent = 'Open this link on your phone – MoveD opens and asks for your new password.';
+}
 if (/error/.test(h)) {
   var desc = decodeURIComponent((h.match(/error_description=([^&]*)/) || [,''])[1]).replace(/\+/g,' ');
   document.getElementById('icon').textContent = '!';
